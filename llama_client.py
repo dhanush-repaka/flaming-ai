@@ -28,8 +28,15 @@ class LlamaClient:
                 authority=f"{self.auth_uri}/{self.tenant_id}"
             )
             
-            # Get token
-            result = app.acquire_token_for_client(scopes=self.scope)
+            # Get token - handle different scope options
+            if not self.scope:
+                # Try without scope first
+                result = app.acquire_token_for_client(scopes=[])
+            elif self.scope == [".default"]:
+                # Try with just .default scope
+                result = app.acquire_token_for_client(scopes=[".default"])
+            else:
+                result = app.acquire_token_for_client(scopes=self.scope)
             
             if "access_token" in result:
                 self.access_token = result["access_token"]
