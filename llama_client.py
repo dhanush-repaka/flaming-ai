@@ -69,8 +69,8 @@ class LlamaClient:
                 "Content-Type": "application/json"
             }
             
-            # Test endpoint - you may need to adjust this based on the actual API
-            test_url = f"{self.base_url}/health"  # or /status, /ping, etc.
+            # Test endpoint - using the correct API path
+            test_url = f"{self.base_url}/v1/health"  # or /status, /ping, etc.
             
             response = requests.get(test_url, headers=headers, timeout=30)
             
@@ -126,7 +126,7 @@ class LlamaClient:
             })
             
             # Send request to chat endpoint
-            chat_url = f"{self.base_url}/chat/completions"  # Adjust endpoint as needed
+            chat_url = f"{self.base_url}/v1/chat/completions"  # Correct endpoint
             
             response = requests.post(chat_url, headers=headers, json=payload, timeout=60)
             
@@ -166,7 +166,7 @@ class LlamaClient:
                 "Content-Type": "application/json"
             }
             
-            models_url = f"{self.base_url}/models"
+            models_url = f"{self.base_url}/v1/models"
             
             response = requests.get(models_url, headers=headers, timeout=30)
             
